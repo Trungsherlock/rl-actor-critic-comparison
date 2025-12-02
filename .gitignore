@@ -1,0 +1,125 @@
+# ====================================
+# Python
+# ====================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter Notebook (if you accidentally create any)
+.ipynb_checkpoints
+*.ipynb
+
+# ====================================
+# Machine Learning / RL Specific
+# ====================================
+# Model checkpoints (can be large)
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+saved_models/
+models/
+
+# Experiment logs
+logs/
+runs/
+tensorboard/
+wandb/
+
+# Large result files
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Videos/Renders (if you record agent gameplay)
+*.mp4
+*.avi
+*.gif
+videos/
+
+# ====================================
+# IDEs
+# ====================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Spyder
+.spyderproject
+.spyproject
+
+# ====================================
+# OS
+# ====================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ====================================
+# Project Specific
+# ====================================
+# Raw experimental data (keep processed results)
+experiments/*/raw_data/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# Large datasets (if any)
+data/raw/
+*.csv  # Only if you have large CSVs
