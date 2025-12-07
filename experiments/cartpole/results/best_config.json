@@ -1,0 +1,6 @@
+{
+  "hidden_dim": 64,
+  "gamma": 0.99,
+  "lr_policy": 0.003,
+  "lr_value": 0.003
+}

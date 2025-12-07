@@ -260,7 +260,7 @@ def test_reinforce():
     print("=" * 60)
     
     from environments.cartpole import CartPoleEnv
-    env = CartPoleEnv(render_mode="human")
+    env = CartPoleEnv()
     
     agent = REINFORCE(
         state_dim=env.get_state_dim(),
