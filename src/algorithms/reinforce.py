@@ -7,10 +7,8 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.networks.trung_networks.policy_network import PolicyNetwork
-from src.networks.trung_networks.continuous_policy_network import ContinuousPolicyNetwork
-from src.networks.trung_networks.critic_network import CriticNetwork
-from src.networks.trung_networks.baseline_network import BaselineNetwork
+from src.networks.anh_networks.policy_network import DiscretePolicyNetwork, ContinuousPolicyNetwork
+from src.networks.anh_networks.value_network import DiscreteValueNetwork, ContinuousValueNetwork
 from utils.training_utils import set_seed, compute_returns
 
 
@@ -38,10 +36,12 @@ class REINFORCE:
 
         if continuous:
             self.policy = ContinuousPolicyNetwork(state_dim, action_dim, hidden_dim).to(device)
-            self.value = CriticNetwork(state_dim, hidden_dim).to(device)
+            self.value = ContinuousValueNetwork(state_dim, hidden_dim).to(device)
+            self.value.h3.bias.data.fill_(-500.0)
+            self.value.h3.weight.data.mul_(0.01)
         else:
-            self.policy = PolicyNetwork(state_dim, action_dim, hidden_dim).to(device)
-            self.value = BaselineNetwork(state_dim, hidden_dim).to(device)
+            self.policy = DiscretePolicyNetwork(state_dim, action_dim, hidden_dim).to(device)
+            self.value = DiscreteValueNetwork(state_dim, hidden_dim).to(device)
 
         self.policy_optimizer = optim.Adam(self.policy.parameters(), lr=lr_policy)
         self.value_optimizer = optim.Adam(self.value.parameters(), lr=lr_value)
@@ -58,8 +58,13 @@ class REINFORCE:
         """
         Select action using current policy
         """
-        action, log_prob = self.policy.select_action(state)
-        return action, log_prob
+        state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
+        action, log_prob, entropy = self.policy.sample_action(state_tensor)
+
+        if self.continuous:
+            return action.detach().cpu().numpy()[0], log_prob
+        else:
+            return action.item(), log_prob
     
     def store_transition(self, state, action, reward, log_prob):
         """
@@ -173,10 +178,11 @@ class REINFORCE:
 
             while not done:
                 with torch.no_grad():
+                    state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
                     if self.continuous:
-                        action, _ = self.policy.select_action(state, deterministic=True)
+                        mean, log_std = self.policy(state_tensor)
+                        action = mean.detach().cpu().numpy()[0]
                     else:
-                        state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
                         action_probs = self.policy(state_tensor)
                         action = torch.argmax(action_probs).item()
 
