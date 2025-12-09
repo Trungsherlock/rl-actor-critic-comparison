@@ -19,6 +19,8 @@ class MountainCarEnv:
         self.rng = np.random.default_rng(seed)
         self.state = None
         self.t = 0
+        self.state_dim = 2
+        self.action_dim = 3
 
     def reset(self):
         x0 = self.rng.uniform(-0.6, -0.4)
@@ -26,7 +28,7 @@ class MountainCarEnv:
         self.t = 0
         return self.state.copy()
 
-    def step(self, a): 
+    def step(self, a):
         x, v = float(self.state[0]), float(self.state[1])
         v_next = v + 0.001 * a - 0.0025 * math.cos(3.0 * x)
         v_next = float(np.clip(v_next, self.MIN_VEL, self.MAX_VEL))
@@ -41,4 +43,10 @@ class MountainCarEnv:
 
         done = (x_next == self.GOAL_X) or (self.t >= self.max_steps)
         reward = 0.0 if (x_next == self.GOAL_X) else -1.0
-        return self.state.copy(), reward, done
+        return self.state.copy(), reward, done, None, None
+
+    def get_state_dim(self):
+        return self.state_dim
+
+    def get_action_dim(self):
+        return self.action_dim

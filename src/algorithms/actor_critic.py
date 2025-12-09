@@ -14,7 +14,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 src_dir = os.path.dirname(current_dir)
 sys.path.insert(0, src_dir)
 
-from networks.policy_network import PolicyNetwork
+from src.networks.trung_networks.policy_network import PolicyNetwork
 from networks.value_network import ValueNetwork
 
 
