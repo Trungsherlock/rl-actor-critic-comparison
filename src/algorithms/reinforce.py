@@ -7,8 +7,8 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.networks.anh_networks.policy_network import DiscretePolicyNetwork, ContinuousPolicyNetwork
-from src.networks.anh_networks.value_network import DiscreteValueNetwork, ContinuousValueNetwork
+from src.networks.policy_network import DiscretePolicyNetwork, ContinuousPolicyNetwork
+from src.networks.value_network import DiscreteValueNetwork, ContinuousValueNetwork
 from utils.training_utils import set_seed, compute_returns
 
 

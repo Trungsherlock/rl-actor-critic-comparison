@@ -8,8 +8,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 src_dir = os.path.dirname(current_dir)
 sys.path.insert(0, src_dir)
 
-from src.networks.anh_networks.policy_network import ContinuousPolicyNetwork, DiscretePolicyNetwork
-from src.networks.anh_networks.value_network import ContinuousValueNetwork, DiscreteValueNetwork
+from src.networks.policy_network import ContinuousPolicyNetwork, DiscretePolicyNetwork
+from src.networks.value_network import ContinuousValueNetwork, DiscreteValueNetwork
 
 class ContinuousActorCritic:
     def __init__(self, state_dim, action_dim=1,
